@@ -22,19 +22,29 @@ const RootNavigation = () => {
 					</Stack.Group>
 				</>
 			) : (
-				<Stack.Screen
-					name="AddFunds"
-					component={AddFundsScreen}
-					options={{
-						headerShadowVisible: false,
-						headerShown: false,
-					}}
-				/>
+				<Stack.Group >
+					<Stack.Screen
+						name="WalletScreen"
+						component={WalletScreen}
+						options={{
+							headerShadowVisible: false,
+							headerShown: false,
+						}}
+					/>
+					<Stack.Screen
+						name="AddFunds"
+						component={AddFundsScreen}
+						options={{
+							headerShadowVisible: false,
+							headerShown: false,
+						}}
+					/>
+				</Stack.Group>
 
 			)}
 
 		</Stack.Navigator>
-  )
+	)
 };
 
 export default RootNavigation;

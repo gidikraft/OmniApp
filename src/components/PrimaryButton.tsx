@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View, ViewStyle } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, View, ViewStyle } from 'react-native';
 import React from 'react';
 import { Text } from './Themed';
 import Colors, { palette } from '../constants/Colors';
@@ -7,16 +7,21 @@ type ButtonTypes = {
 	title: string;
 	buttonPress: () => void;
 	buttonStyle?: ViewStyle;
+	loading?: boolean;
 };
 
 const PrimaryButton = (props: ButtonTypes) => {
-	const { title, buttonStyle, buttonPress } = props;
+	const { title, buttonStyle, loading, buttonPress } = props;
 	return (
 		<Pressable
 			onPress={buttonPress}
-			style={[styles.button, buttonStyle]}
+			style={[styles.button, buttonStyle, {backgroundColor: loading ? palette.primaryFaded : palette.primary}]}
 		>
-			<Text style={styles.caption} lightColor={Colors.light.tint}>{title}</Text>
+			{loading ? (
+				<ActivityIndicator size={'small'} color={palette.white}/>
+			) : (
+				<Text style={styles.caption} lightColor={Colors.light.tint}>{title}</Text>
+			)}
 		</Pressable>
 	);
 };
@@ -29,11 +34,13 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		marginTop: 8,
 		marginBottom: 8,
-		height: 45,
+		height: 40,
 		backgroundColor: palette.primary,
-		borderRadius: 8,
+		borderRadius: 20,
+		marginHorizontal: 30
 	},
 	caption: {
-		color: palette.white
+		color: palette.white,
+		lineHeight: 16
 	}
 });
