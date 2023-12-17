@@ -3,7 +3,6 @@ import React, { ReactNode } from 'react'
 import { palette } from '../../constants/Colors';
 import Icon from '../Icons';
 import { Text } from '../Themed';
-import { useNavigation } from '@react-navigation/native';
 
 type PageWrapperProps = {
   children: ReactNode;
@@ -14,8 +13,6 @@ type PageWrapperProps = {
 };
 
 export const PageWrapper = ({ children, style, title, withChat, withCurved }: PageWrapperProps) => {
-  const navigation = useNavigation();
-
   return (
     <View style={styles.maincontainer}>
       {withCurved && <View style={{ ...styles.curveBcgrnd, height: Platform.OS === 'android' ? 250 : 284 }} />}
@@ -26,12 +23,12 @@ export const PageWrapper = ({ children, style, title, withChat, withCurved }: Pa
       }} >
         {title &&
           <View style={{ flexDirection: 'row', flex: 1 }}>
-            <Pressable onPress={() => navigation.goBack()} style={{ flex: 0.1 }}>
+            <Pressable onPress={() => { }} style={{ flex: 0.1 }}>
               <Icon name='back-button' size={16} />
             </Pressable>
 
             <View style={{ flex: 0.9 }} >
-              <Text style={{ fontSize: 18, lineHeight: 19.42, textAlign: 'center', color: withCurved ? palette.white : palette.textColor }}>{title}</Text>
+              <Text style={{ fontSize: 18, lineHeight: 19.42, marginLeft: '30%', color: withCurved ? palette.white : palette.textColor }}>{title}</Text>
             </View>
           </View>
         }
@@ -60,10 +57,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
   },
   container: {
-    // marginHorizontal: 22,
     marginTop: 24,
-    // position: 'absolute',
-    // top: 70,
     backgroundColor: palette.background,
     borderRadius: 22,
     paddingHorizontal: 10,

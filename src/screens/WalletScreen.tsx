@@ -5,7 +5,6 @@ import { palette } from '../constants/Colors';
 import Icon from '../components/Icons';
 import { AllTransactions, DashboardActions, PageWrapper } from '../components/layouts';
 import { RootStackScreenProps } from '../navigation/types';
-import CardBg from '../assets/images/balance_card.png';
 
 const TABS = [
   { id: 1, title: 'Both' },
@@ -30,26 +29,30 @@ const WalletScreen = ({ navigation }: RootStackScreenProps<"WalletScreen">) => {
   const { navigate } = navigation;
 
   const filterTransactions = (index: number) => {
-    let type: string;
+    let newTransactions;
     switch (index) {
       case 1:
-        type = 'incoming';
+        newTransactions = DATA.map(group => ({
+          title: group.title,
+          data: group.data.filter(item => item.status === 'incoming'),
+        }));
         break;
       case 2:
-        type = 'outgoing';
+        newTransactions = DATA.map(group => ({
+          title: group.title,
+          data: group.data.filter(item => item.status === 'outgoing'),
+        }));
         break;
       default:
-        type = 'outgoing' && 'incoming';
+        newTransactions = newTransactions = DATA.map(group => ({
+          title: group.title,
+          data: group.data.filter(item => item.status === 'incoming' || item.status === 'outgoing'),
+        }));
         break
     }
-    const newTransactions = DATA.map(group => ({
-      title: group.title,
-      data: group.data.filter(item => item.status === type),
-    }));
 
     setActiveIndex(index);
     setTransactionData(newTransactions);
-    // console.log(JSON.stringify(type));
   };
 
   const toAddFunds = () => navigate('AddFunds');
@@ -74,8 +77,7 @@ const WalletScreen = ({ navigation }: RootStackScreenProps<"WalletScreen">) => {
         </View>
 
       </View>
-      <DashboardActions
-      />
+      <DashboardActions />
 
       <View style={{
         flexDirection: 'row',

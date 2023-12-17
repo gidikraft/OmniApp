@@ -20,9 +20,10 @@ const AddFundsScreen = ({ navigation }: RootStackScreenProps<"AddFunds">) => {
       };
 
       await SERVER.post('test/add-money', body);
-
     } catch (error) {
       console.log(error, 'addmoney error reponse');
+      // @ts-expect-error
+      setError('amount', error?.response?.data?.message)
     } finally {
       setLoading(false);
     }
@@ -48,7 +49,7 @@ const AddFundsScreen = ({ navigation }: RootStackScreenProps<"AddFunds">) => {
           </Pressable>
 
           <View style={{ flex: 0.9 }} >
-            <Text style={{ fontSize: 18, lineHeight: 19.42, textAlign: 'center', color: palette.textColor }}>Add Money</Text>
+            <Text style={{ fontSize: 18, lineHeight: 19.42, marginLeft: '30%', color: palette.textColor }}>Add Money</Text>
           </View>
         </View>
 
